@@ -7,6 +7,10 @@ export function getAll(): Whale[] {
 }
 
 export function create(whale: Whale): void {
+    if(whales.find(w => w.name === whale.name)) {
+      throw new Error("Duplicated element")
+    }
+
     whales.push(whale)
 }
 

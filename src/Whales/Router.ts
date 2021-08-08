@@ -27,8 +27,12 @@ router.post("/", [
     if (!validationResult(req).isEmpty()) {
         res.sendStatus(422)
     } else {
-        Store.create(req.body)
-        res.sendStatus(201)
+        try {
+          Store.create(req.body)
+          res.sendStatus(201)
+        } catch(e) {
+          res.sendStatus(400)
+        }
     }
 })
 

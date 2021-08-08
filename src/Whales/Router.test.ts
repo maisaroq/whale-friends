@@ -40,7 +40,7 @@ describe("Whales Router", () => {
             const whales: Whale[] = [
                 { name: "Whally", age: 87 },
                 { name: "Blui", age: 42 },
-            ] 
+            ]
 
             const whalesStore = sinon.mock(Store)
             whalesStore.expects("getAll").once().returns(whales)
@@ -55,7 +55,7 @@ describe("Whales Router", () => {
             const whales: Whale[] = [
                 { name: "Whally", age: 87 },
                 { name: "Blui", age: 42 },
-            ] 
+            ]
 
             const whalesStore = sinon.mock(Store)
             whalesStore.expects("getAll").once().returns(whales)
@@ -77,6 +77,17 @@ describe("Whales Router", () => {
             expect(res).to.have.status(201)
             expect(res.body).is.empty
             whalesStore.verify()
+        })
+
+        it("should return with 400 if whale creation fails", async () => {
+          const whale: Whale = { name: "Whally", age: 87 }
+          const whalesStore = sinon.mock(Store)
+          whalesStore.expects("create").withArgs(whale).once().throws(new Error("Duplicated element"))
+
+          const res = await chai.request(server).post("/").send(whale)
+          expect(res).to.have.status(400)
+          expect(res.body).is.empty
+          whalesStore.verify()
         })
 
         itParam(
@@ -103,7 +114,7 @@ describe("Whales Router", () => {
             const whalesStore = sinon.mock(Store)
             whalesStore.expects("remove").withArgs("Whally").once()
             const res = await chai.request(server).delete("/Whally")
-            
+
             expect(res).to.have.status(204)
             expect(res.body).is.empty
             whalesStore.verify()
