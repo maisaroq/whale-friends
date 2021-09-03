@@ -1,6 +1,6 @@
-import express, { Router, Request, Response } from "express";
+import express, { Router, Request, Response } from "express"
 import {body, validationResult} from "express-validator"
-import * as Store from "./Store";
+import * as Store from "./Store"
 
 const router = Router()
 router.use(express.json())

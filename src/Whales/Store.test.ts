@@ -2,7 +2,7 @@ import { expect } from "chai"
 import Whale from "./Whale"
 
 beforeEach(() => {
-    delete require.cache[require.resolve('./Store')];
+    delete require.cache[require.resolve('./Store')]
 })
 
 describe("Whales Store", () => {
